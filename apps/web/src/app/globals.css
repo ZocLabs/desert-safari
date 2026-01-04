@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 60 20% 98%;
+    /* Pearl White */
+    --foreground: 204 4% 22%;
+    /* Onyx Black */
+    --card: 60 20% 100%;
+    --card-foreground: 204 4% 22%;
+    --popover: 60 20% 100%;
+    --popover-foreground: 204 4% 22%;
+    --primary: 40 48% 56%;
+    /* Sand Gold */
+    --primary-foreground: 60 20% 98%;
+    --secondary: 204 4% 22%;
+    --secondary-foreground: 60 20% 98%;
+    --muted: 40 20% 96%;
+    --muted-foreground: 204 4% 40%;
+    --accent: 40 48% 96%;
+    --accent-foreground: 40 48% 56%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 40 30% 90%;
+    --input: 40 30% 90%;
+    --ring: 40 48% 56%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 204 4% 11%;
+    /* Onyx variant for background */
+    --foreground: 60 20% 98%;
+    /* pearl white text */
+    --card: 204 4% 15%;
+    --card-foreground: 60 20% 98%;
+    --popover: 204 4% 11%;
+    --popover-foreground: 60 20% 98%;
+    --primary: 40 48% 56%;
+    /* Gold remains gold */
+    --primary-foreground: 204 4% 11%;
+    --secondary: 40 20% 90%;
+    --secondary-foreground: 204 4% 11%;
+    --muted: 210 4% 20%;
+    --muted-foreground: 210 4% 70%;
+    --accent: 210 4% 20%;
+    --accent-foreground: 60 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 210 4% 25%;
+    --input: 210 4% 25%;
+    --ring: 40 48% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

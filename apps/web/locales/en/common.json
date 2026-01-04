@@ -1,0 +1,10 @@
+{
+    "nav": {
+        "home": "Home",
+        "tours": "Tours",
+        "gallery": "Gallery",
+        "about": "About",
+        "contact": "Contact",
+        "bookNow": "Book Now"
+    }
+}
