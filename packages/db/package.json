@@ -1,0 +1,16 @@
+{
+    "name": "@desert-safari/db",
+    "version": "0.0.0",
+    "main": "index.ts",
+    "scripts": {
+        "generate": "prisma generate",
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.0.0"
+    },
+    "devDependencies": {
+        "prisma": "^5.22.0",
+        "typescript": "^5.0.0"
+    }
+}

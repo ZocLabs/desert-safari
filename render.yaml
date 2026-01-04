@@ -1,0 +1,58 @@
+services:
+  # 1. API Service (Node.js/Express)
+  - type: web
+    name: desert-safari-api
+    env: node
+    buildCommand: npm install && npm run build -w packages/db && npm run build -w apps/api
+    startCommand: npm start -w apps/api
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: desert-safari-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: desert-safari-redis
+          property: connectionString
+      - key: NODE_ENV
+        value: production
+    healthCheckPath: /health
+
+  # 2. Background Worker (For WhatsApp/Email Queues)
+  - type: worker
+    name: desert-safari-worker
+    env: node
+    # Assuming the worker is located in apps/worker (will scaffold briefly)
+    buildCommand: npm install && npm run build -w packages/db && npm run build -w apps/worker
+    startCommand: npm start -w apps/worker
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: desert-safari-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: desert-safari-redis
+          property: connectionString
+
+databases:
+  - name: desert-safari-db
+    databaseName: desert_safari
+    user: admin
+
+  - name: desert-safari-redis
+    ipAllowList: [] # Allow all within Render
+
+envVarGroups:
+  - name: shared-secrets
+    envVars:
+      - key: CLERK_SECRET_KEY
+        sync: false
+      - key: CLERK_PUBLISHABLE_KEY
+        sync: false
+      - key: FATORA_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false

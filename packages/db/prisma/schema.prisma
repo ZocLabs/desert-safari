@@ -1,0 +1,74 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  clerkId   String   @unique
+  phone     String?
+  whatsapp  String?
+  role      Role     @default(USER)
+  reviews   Review[]
+  bookings  Booking[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Tour {
+  id            String   @id @default(uuid())
+  slug          String   @unique
+  title         String
+  description   String
+  price         Decimal
+  currency      String   @default("QAR")
+  duration      String
+  includedItems String[]
+  images        String[]
+  bookings      Booking[]
+}
+
+model Booking {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  tourId        String
+  tour          Tour     @relation(fields: [tourId], references: [id])
+  status        BookingStatus @default(PENDING)
+  paymentMethod PaymentMethod @default(WHATSAPP)
+  createdAt     DateTime @default(now())
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  STRIPE
+  CASH
+  WHATSAPP
+}
+
+model Availability {
+  id        String   @id @default(uuid())
+  dateTime  DateTime
+  capacity  Int
+}
+
+model Review {
+  id      String @id @default(uuid())
+  rating  Int
+  comment String
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+}
